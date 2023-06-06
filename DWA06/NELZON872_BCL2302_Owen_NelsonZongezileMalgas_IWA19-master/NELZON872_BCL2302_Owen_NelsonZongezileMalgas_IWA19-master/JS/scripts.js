@@ -1,3 +1,4 @@
+// HIGHER-ORDER FUNCTIONS (Functions that take other functions )
 
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
@@ -41,19 +42,28 @@ const createPreviewElement =(book) => {
 }
 
 
+/**
+ * Renders book previews based on the current page and matches array.
+ * Uses the createPreviewElement function to generate the preview elements.
+ */
 const renderBookPreviews = () => {
-  const bookPreviews = matches
-    .slice((page - 1) * BOOKS_PER_PAGE, page * BOOKS_PER_PAGE)
-    .map(createPreviewElement);
-
-  bookPreviews.forEach((preview) => {
-    starting.appendChild(preview);
-  });
-
-  document.querySelector('[data-list-items]').appendChild(starting);
-}
-
-renderBookPreviews();
+    // Get the book previews for the current page
+    const bookPreviews = matches
+      .slice((page - 1) * BOOKS_PER_PAGE, page * BOOKS_PER_PAGE)
+      .map(createPreviewElement);
+  
+    // Append each preview element to the 'starting' container
+    bookPreviews.forEach((preview) => {
+      starting.appendChild(preview);
+    });
+  
+    // Append the 'starting' container to the 'data-list-items' container
+    document.querySelector('[data-list-items]').appendChild(starting);
+  }
+  
+  // Call the renderBookPreviews function to display the book previews
+  renderBookPreviews();
+  
 
 //---------------------------------------------------------------------------------
 
@@ -89,10 +99,9 @@ const createOptionsFragment = (data, defaultOptionText) => {
 
   //-----------------------------------------------------------------------------------------------------------
 
-
 /**
  * This function updates the number of books remaining when the showMore button
- * is clicked remaining books decrements by 36
+ * is clicked.remaining books decrements by 36
  */
 const updateRemainingBooksCount = () => {
     let remainingBooks = books.length - (page * BOOKS_PER_PAGE);
