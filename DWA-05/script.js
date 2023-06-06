@@ -10,10 +10,10 @@ form.addEventListener("submit", (event) => {
 
   if (isNaN(dividend) || isNaN(divider)) {
     result.innerText = "Something critical went wrong. Please reload the page";
-    console.log("Invalid input. Non-numeric value provided.");
+    console.error("Something critical went wrong. Please reload the page");
   } else if (divider <= 0) {
     result.innerText = "Division not performed. Invalid number provided. Try again";
-    console.log("Invalid input. Division by zero attempted.");
+    console.error("Division not performed. Invalid number provided. Try again");
   } else {
     result.innerText = Math.floor(dividend / divider);
   }
