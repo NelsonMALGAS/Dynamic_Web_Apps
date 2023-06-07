@@ -1,4 +1,10 @@
-// HIGHER-ORDER FUNCTIONS (Functions that take other functions )
+
+/*A HIGHER-ORDER FUNCTION is a function that can accept other functions as
+ arguments or return functions as results. In other words, it treats functions
+ as first-class citizens, allowing them to be manipulated and passed around
+ like any other value.
+*/
+
 
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
@@ -282,6 +288,7 @@ function createBookPreview({ author, id, image, title }) {
 
     return element;
 }
+
 
 document.querySelector('[data-list-button]').addEventListener('click', () => {
     const fragment = document.createDocumentFragment();
