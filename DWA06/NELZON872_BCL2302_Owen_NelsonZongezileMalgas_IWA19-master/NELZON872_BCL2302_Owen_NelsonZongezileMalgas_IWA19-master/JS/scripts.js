@@ -13,7 +13,8 @@
    simplified manner, making it easier to understand and work with.
  */
 
-
+ // I mainly used Structured / Procedural programming
+ 
    import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
    let page = 1;
