@@ -47,7 +47,6 @@ const createPreviewElement =(book) => {
   return element;
 }
 
-
 /**
  * Renders book previews based on the current page and matches array.
  * Uses the createPreviewElement function to generate the preview elements.
@@ -122,6 +121,7 @@ const updateRemainingBooksCount = () => {
     `;
 
     document.querySelector('[data-list-button]').addEventListener('click', () => {
+        
         remainingBooks -= 36;
         updateRemainingBooksCount();
       });
@@ -132,27 +132,69 @@ const updateRemainingBooksCount = () => {
   updateRemainingBooksCount();
 
   //---------------------------------------------------------------------------
-
-document.querySelector('[data-search-cancel]').addEventListener('click', () => {
-    document.querySelector('[data-search-overlay]').open = false
-})
-
-document.querySelector('[data-settings-cancel]').addEventListener('click', () => {
-    document.querySelector('[data-settings-overlay]').open = false
-})
-
-document.querySelector('[data-header-search]').addEventListener('click', () => {
-    document.querySelector('[data-search-overlay]').open = true 
-    document.querySelector('[data-search-title]').focus()
-})
-
-document.querySelector('[data-header-settings]').addEventListener('click', () => {
-    document.querySelector('[data-settings-overlay]').open = true 
-})
-
-document.querySelector('[data-list-close]').addEventListener('click', () => {
-    document.querySelector('[data-list-active]').open = false
-})
+/**
+ * This function is responsible for  the overlay functionality and will be initialized,
+ * setting up the event listeners and their corresponding actions. The
+ * encapsulation helps keep the code contained and can be easily reused or
+ * invoked when needed.
+ */
+const initializeOverlayFunctionality = () => {
+    const searchOverlay = document.querySelector('[data-search-overlay]');
+    const settingsOverlay = document.querySelector('[data-settings-overlay]');
+    const searchCancel = document.querySelector('[data-search-cancel]');
+    const settingsCancel = document.querySelector('[data-settings-cancel]');
+    const headerSearch = document.querySelector('[data-header-search]');
+    const headerSettings = document.querySelector('[data-header-settings]');
+    const listClose = document.querySelector('[data-list-close]');
+    const searchTitle = document.querySelector('[data-search-title]');
+    const listActive = document.querySelector('[data-list-active]');
+  
+    searchCancel.addEventListener('click', () => {
+      closeOverlay(searchOverlay);
+    });
+  
+    settingsCancel.addEventListener('click', () => {
+      closeOverlay(settingsOverlay);
+    });
+  
+    headerSearch.addEventListener('click', () => {
+      openOverlay(searchOverlay);
+      focusElement(searchTitle);
+    });
+  
+    headerSettings.addEventListener('click', () => {
+      openOverlay(settingsOverlay);
+    });
+  
+    listClose.addEventListener('click', () => {
+      closeOverlay(listActive);
+    });
+  /**
+   * This function opens overlays
+   * @param {overlay} overlay 
+   */
+    function openOverlay(overlay) {
+      overlay.open = true;
+    }
+  /**
+   * This function closes overlays
+   * @param {overlay} overlay 
+   */
+    function closeOverlay(overlay) {
+      overlay.open = false;
+    }
+   /**
+    * This function puts focus on elements
+    * @param {element} element 
+    */
+    function focusElement(element) {
+      element.focus();
+    }
+  }
+  
+  // Call the function to initialize the overlay functionality
+  initializeOverlayFunctionality();
+  
 
 
 /**
@@ -160,7 +202,7 @@ document.querySelector('[data-list-close]').addEventListener('click', () => {
  * @param {string} theme 
  */
 
-function updateTheme(theme) {
+const updateTheme = (theme) => {
     if (theme === 'night') {
         document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
         document.documentElement.style.setProperty('--color-light', '10, 10, 20');
@@ -222,7 +264,7 @@ document.querySelector('[data-search-form]').addEventListener('submit', (event) 
       errorMessage()
 
   /**
-   * This functions displays the new books when the show more button is clicked
+   * This functions displays the new set of books when the show more button is clicked
    */    
  const newHtmlItems = () =>{    
     document.querySelector('[data-list-items]').innerHTML = ''
@@ -257,11 +299,9 @@ document.querySelector('[data-search-form]').addEventListener('submit', (event) 
     document.querySelector('[data-search-overlay]').open = false
 })
 
-
-
 /**
- * This function replaces the already existing at {@link createPreviewElement}
- * books on the HTML document everytime showMore button is clicked
+ * This function creates the book preview elements to display on every page
+ * on the HTML document everytime showMore button is clicked
  * @param {string} author -The writer of each book
  * @param {string} id -ID of each book
  * @param {image} image -image of each book
@@ -310,7 +350,7 @@ document.querySelector('[data-list-button]').addEventListener('click', () => {
  * @returns {element} 
  */
 
-function getActiveBook(event) {
+const getActiveBook = (event) => {
     const pathArray = Array.from(event.path || event.composedPath());
 
     for (const node of pathArray) {
@@ -323,6 +363,9 @@ function getActiveBook(event) {
 }
 
 document.querySelector('[data-list-items]').addEventListener('click', (event) => {
+    /**
+     * Checks if element (book) is active
+     */
     const active = getActiveBook(event);
 
     if (active) {

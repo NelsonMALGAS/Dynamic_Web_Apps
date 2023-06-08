@@ -21,6 +21,8 @@ form.addEventListener("submit", (event) => {
   }
 });
 
+
+
 //The below code is my implimentation for try catch error
 
 // const form = document.querySelector("[data-form]");
