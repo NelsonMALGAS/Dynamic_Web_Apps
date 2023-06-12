@@ -30,7 +30,6 @@
  let matches = books;
  
  const starting = document.createDocumentFragment();
-
  
  /**
   * Renders book previews based on the current page and matches array.
@@ -152,8 +151,8 @@
    // Call the function to initialize the overlay functionality
    initializeOverlayFunctionality();
 
- 
- document.querySelector('[data-settings-form]').addEventListener('submit', (event) => {
+ const dataFormSettings = document.querySelector('[data-settings-form]')
+ dataFormSettings.addEventListener('submit', (event) => {
      event.preventDefault();
      const formData = new FormData(event.target);
      const { theme } = Object.fromEntries(formData);
@@ -290,7 +289,7 @@
 const listActiveOverlay =  document.querySelector('[data-list-active]')
 const listActiveBlurImage = document.querySelector('[data-list-blur]')
 const listActiveImage = document.querySelector('[data-list-image]')
-const titleOfBook = document.querySelector('[data-list-title]')   // 2 (event listerners)
+const titleOfBook = document.querySelector('[data-list-title]')   
 const subtitleOfBook = document.querySelector('[data-list-subtitle]')
 const descriptionOfBook = document.querySelector('[data-list-description]')
 const dataListItems = document.querySelector('[data-list-items]')

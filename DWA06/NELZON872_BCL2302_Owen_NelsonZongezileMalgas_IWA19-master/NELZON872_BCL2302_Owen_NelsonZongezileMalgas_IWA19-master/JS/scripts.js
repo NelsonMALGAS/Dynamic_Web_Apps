@@ -11,8 +11,6 @@
    hiding unnecessary details. It is the process of representing something in a
    simplified manner, making it easier to understand and work with.
  */
-
- // I mainly used Structured / Procedural programming
  
    import { 
     books,
@@ -30,7 +28,6 @@
    
    const starting = document.createDocumentFragment();
  
-   
    /**
     * Renders book previews based on the current page and matches array.
     * Uses the createPreviewElement function to generate the preview elements.
@@ -97,32 +94,27 @@
    const initializeOverlayFunctionality = () => {
        const searchOverlay = document.querySelector('[data-search-overlay]');
        const settingsOverlay = document.querySelector('[data-settings-overlay]');
-       const searchCancel = document.querySelector('[data-search-cancel]');
-       const settingsCancel = document.querySelector('[data-settings-cancel]');
-       const headerSearch = document.querySelector('[data-header-search]');
-       const headerSettings = document.querySelector('[data-header-settings]');
-       const listClose = document.querySelector('[data-list-close]');
        const searchTitle = document.querySelector('[data-search-title]');
        const listActive = document.querySelector('[data-list-active]');
      
-       searchCancel.addEventListener('click', () => {
+       document.querySelector('[data-search-cancel]').addEventListener('click', () => {
          closeOverlay(searchOverlay);
        });
      
-       settingsCancel.addEventListener('click', () => {
+       document.querySelector('[data-settings-cancel]').addEventListener('click', () => {
          closeOverlay(settingsOverlay);
        });
      
-       headerSearch.addEventListener('click', () => {
+       document.querySelector('[data-header-search]').addEventListener('click', () => {
          openOverlay(searchOverlay);
          focusElement(searchTitle);
        });
      
-       headerSettings.addEventListener('click', () => {
+       document.querySelector('[data-header-settings]').addEventListener('click', () => {
          openOverlay(settingsOverlay);
        });
      
-       listClose.addEventListener('click', () => {
+       document.querySelector('[data-list-close]').addEventListener('click', () => {
          closeOverlay(listActive);
        });
      /**
@@ -159,14 +151,12 @@
        updateTheme(theme);
        document.querySelector('[data-settings-overlay]').open = false;
    });
-   
-   const form = document.querySelector('[data-search-form]')
-   
+    
    /**
     * Handles the form submission event and performs filtering and rendering of books.
     * @param {Event} event - The submit event object.
     */
-   form.addEventListener('submit', (event) => {
+   document.querySelector('[data-search-form]').addEventListener('submit', (event) => {
      event.preventDefault();
      const formData = new FormData(event.target);
      const filters = Object.fromEntries(formData);

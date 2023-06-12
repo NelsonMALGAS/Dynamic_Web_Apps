@@ -33,3 +33,7 @@ This is  a JavaScript program that creates a book list application. The applicat
 # DWA07
 
 This is the further modification of DWA06 so that is meets the SOLID Principles standards.
+
+# DWA08
+
+This is the further modification of DWA06 & 07 so that is meets the SOLID Principles standards and also to make sure that the book preview is Encapsulated properly

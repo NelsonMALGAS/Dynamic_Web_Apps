@@ -13,7 +13,6 @@
  creation logic and customize object initialization.
  */
 
- // I mainly used Structured / Procedural programming
  
  import { 
   books,
@@ -30,38 +29,67 @@
  let matches = books;
  
  const starting = document.createDocumentFragment();
+//-----------------------------------------------------------------------------------------------
+/**
+ * Factory function to create an object with methods for rendering book previews and appending options.
+ * @param {Array} matches - Array of book matches
+ * @param {number} page - Current page number
+ * @param {number} BOOKS_PER_PAGE - Number of books per page
+ * @param {Array} genres - Array of available genres
+ * @param {Array} authors - Array of available authors
+ * @returns {Object} - Object with rendering methods
+ */
+function createBookRenderer(matches, page, BOOKS_PER_PAGE, genres, authors) {
+  /**
+   * Renders book previews based on the current page and matches array.
+   * Uses the createPreviewElement function to generate the preview elements.
+   */
+  function renderBookPreviews() {
+    // Get the book previews for the current page
+    const bookPreviews = matches
+      .slice((page - 1) * BOOKS_PER_PAGE, page * BOOKS_PER_PAGE)
+      .map(createPreviewElement);
 
- 
- /**
-  * Renders book previews based on the current page and matches array.
-  * Uses the createPreviewElement function to generate the preview elements.
-  */
- const renderBookPreviews = () => {
-     // Get the book previews for the current page
-     const bookPreviews = matches
-       .slice((page - 1) * BOOKS_PER_PAGE, page * BOOKS_PER_PAGE)
-       .map(createPreviewElement);
-   
-     // Append each preview element to the 'starting' container
-     bookPreviews.forEach((preview) => {
-       starting.appendChild(preview);
-     });
-   
-     // Append the 'starting' container to the 'data-list-items' container
-     document.querySelector('[data-list-items]').appendChild(starting);
-   }
-   
-   // Call the renderBookPreviews function to display the book previews
-   renderBookPreviews();
-   
-   const genreHtml = createOptionsFragment(genres, 'All Genres');
-   document.querySelector('[data-search-genres]').appendChild(genreHtml);
-   
-   const authorsHtml = createOptionsFragment(authors, 'All Authors');
-   document.querySelector('[data-search-authors]').appendChild(authorsHtml);
- 
-   //-----------------------------------------------------------------------------------------------------------
- 
+    // Append each preview element to the 'starting' container
+    bookPreviews.forEach((preview) => {
+      starting.appendChild(preview);
+    });
+
+    // Append the 'starting' container to the 'data-list-items' container
+    document.querySelector('[data-list-items]').appendChild(starting);
+  }
+
+  /**
+   * Appends genre options to the DOM.
+   */
+  function appendGenreOptions() {
+    const genreHtml = createOptionsFragment(genres, 'All Genres');
+    const dataSearchGen = document.querySelector('[data-search-genres]')
+    dataSearchGen.appendChild(genreHtml);
+  }
+
+  /**
+   * Appends author options to the DOM.
+   */
+  function appendAuthorOptions() {
+    const authorsHtml = createOptionsFragment(authors, 'All Authors');
+    const dataSearchAuth = document.querySelector('[data-search-authors]')
+    dataSearchAuth.appendChild(authorsHtml);
+  }
+
+  // Return the object with rendering methods
+  return {
+    renderBookPreviews,
+    appendGenreOptions,
+    appendAuthorOptions,
+  };
+}
+
+const renderer = createBookRenderer(matches, page, BOOKS_PER_PAGE, genres, authors);
+renderer.renderBookPreviews();
+renderer.appendGenreOptions();
+renderer.appendAuthorOptions();
+//----------------------------------------------------------------------------------------
  /**
   * This function updates the number of books remaining when the showMore button
   * is clicked.remaining books decrements by 36
@@ -77,8 +105,8 @@
        <span>Show more</span>
        <span class="list__remaining"> (${remainingBooks > 0 ? remainingBooks : 0})</span>
      `;
- 
-     document.querySelector('[data-list-button]').addEventListener('click', () => {
+    
+     listButtonElement.addEventListener('click', () => {
          
          remainingBooks -= 36;
          updateRemainingBooksCount();
@@ -88,7 +116,7 @@
    
    updateRemainingBooksCount();
  
-   //---------------------------------------------------------------------------
+
  /**
   * This function is responsible for  the overlay functionality and will be initialized,
   * setting up the event listeners and their corresponding actions. The
