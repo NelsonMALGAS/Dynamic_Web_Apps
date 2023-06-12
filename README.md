@@ -20,7 +20,7 @@ How to write user stories using "+" button & "-" button from the Tally Counter(I
 Airbnb Javascript style guide exercise
 
 # DWA05
-Throwing errors on the divission calculater
+Throwing errors on the division calculater
 
 # DWA06
 
@@ -32,4 +32,4 @@ This is  a JavaScript program that creates a book list application. The applicat
 
 # DWA07
 
-This is the further modification of DWA06 so that is meets the SOLID Pronciples standards
+This is the further modification of DWA06 so that is meets the SOLID Principles standards.

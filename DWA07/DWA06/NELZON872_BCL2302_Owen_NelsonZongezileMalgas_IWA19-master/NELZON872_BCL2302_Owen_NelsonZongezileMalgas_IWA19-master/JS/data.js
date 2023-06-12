@@ -25411,3 +25411,113 @@ export const books = [
     "author": "8e7083f4-7613-4872-a21b-62fbe33fe180"
   }
 ]
+
+ /**
+    * This is the function that creates the books that have titles, genres ,id and images to appear on the HTML document
+    * @param {object} book 
+    * @param {string} book.author -The author of the book
+    * @param {string} book.id -The ID of the book
+    * @param {string} book.image -The Image URL
+    * @param {string} book.title -The title of the book
+    * @returns {element} 
+    */
+ export const createPreviewElement =({ author, id, image, title }) => {
+  const element = document.createElement('button');
+  element.classList = 'preview';
+  element.setAttribute('data-preview', id);
+
+  const imageElement = document.createElement('img');
+  imageElement.classList = 'preview__image';
+  imageElement.src = image;
+
+  const infoElement = document.createElement('div');
+  infoElement.classList = 'preview__info';
+
+  const titleElement = document.createElement('h3');
+  titleElement.classList = 'preview__title';
+  titleElement.textContent = title;
+
+  const authorElement = document.createElement('div');
+  authorElement.classList = 'preview__author';
+  authorElement.textContent = authors[author];
+
+  infoElement.appendChild(titleElement);
+  infoElement.appendChild(authorElement);
+
+  element.appendChild(imageElement);
+  element.appendChild(infoElement);
+
+  return element;
+}
+
+ /**
+    * This is a function that create the options HTML
+    * @param {string} data - This will replace the {@link defaultOptionText} that already exists after user input
+    * @param {string} defaultOptionText - This is the default text that will show if {@link data} is not found or it's null
+    * @returns {fragment} -The fragment that will be appended to the HTML
+    */
+   
+ export const createOptionsFragment = (data, defaultOptionText) => {
+  const fragment = document.createDocumentFragment();
+  const firstElement = document.createElement('option');
+  firstElement.value = 'any';
+  firstElement.innerText = defaultOptionText;
+  fragment.appendChild(firstElement);
+
+  for (const [id, name] of Object.entries(data)) {
+    const element = document.createElement('option');
+    element.value = id;
+    element.innerText = name;
+    fragment.appendChild(element);
+  }
+
+  return fragment;
+}
+
+ /**
+    * This function waits for the user to select either 'day' or 'night' and changes the theme based on user input
+    * @param {string} theme 
+    */
+   
+ export const updateTheme = (theme) => {
+  if (theme === 'night') {
+      document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
+      document.documentElement.style.setProperty('--color-light', '10, 10, 20');
+  } else {
+      document.documentElement.style.setProperty('--color-dark', '10, 10, 20');
+      document.documentElement.style.setProperty('--color-light', '255, 255, 255');
+  }
+}
+
+ /**
+    * This function creates the book preview element to display 
+    * on the HTML document every time the {@link element}  is clicked.
+    *
+    * @param {Object} book - The book object containing details.
+    * @param {string} book.author - The writer of the book.
+    * @param {string} book.id - The ID of the book.
+    * @param {string} book.image - The image URL of the book.
+    * @param {string} book.title - The title of the book.
+    * @returns {Element} 
+    */
+   
+ export const createBookPreview = (book) => {
+  const { author, id, image, title } = book  // Now i actually passed the book as argument. 1
+    const element = document.createElement('button');
+    element.classList = 'preview';
+    element.setAttribute('data-preview', id);
+
+    element.innerHTML = `
+        <img
+            class="preview__image"
+            src="${image}"
+        />
+
+        <div class="preview__info">
+            <h3 class="preview__title">${title}</h3>
+            <div class="preview__author">${authors[author]}</div>
+        </div>
+    `;
+
+    return element;
+}

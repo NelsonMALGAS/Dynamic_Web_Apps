@@ -1,10 +1,9 @@
-
 /*
-  A HIGHER-ORDER FUNCTION is a function that can accept other functions as
-  arguments or return functions as results. In other words, it treats functions
-  as first-class citizens, allowing them to be manipulated and passed around
-  like any other value.
-*/
+ A FACTORY FUNCTION is a design pattern in JavaScript that allows you to create
+ and return new objects with a consistent structure. It acts as a factory for
+ creating objects of a specific type, providing a way to encapsulate object
+ creation logic and customize object initialization.
+ */
 
 /*
    ABSTRACTION is a fundamental concept in computer science and programming that
@@ -15,49 +14,22 @@
 
  // I mainly used Structured / Procedural programming
  
-   import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
+   import { 
+    books,
+    authors,
+    genres,
+    BOOKS_PER_PAGE,
+    createPreviewElement,
+    createOptionsFragment,
+    updateTheme,
+    createBookPreview
+   } from './data.js'
 
    let page = 1;
    let matches = books;
    
    const starting = document.createDocumentFragment();
-   /**
-    * This is the function that creates the books that have titles, genres ,id and images to appear on the HTML document
-    * @param {object} book 
-    * @param {string} book.author -The author of the book
-    * @param {string} book.id -The ID of the book
-    * @param {string} book.image -The Image URL
-    * @param {string} book.title -The title of the book
-    * @returns {element} 
-    */
-   const createPreviewElement =({ author, id, image, title }) => {
-     const element = document.createElement('button');
-     element.classList = 'preview';
-     element.setAttribute('data-preview', id);
-   
-     const imageElement = document.createElement('img');
-     imageElement.classList = 'preview__image';
-     imageElement.src = image;
-   
-     const infoElement = document.createElement('div');
-     infoElement.classList = 'preview__info';
-   
-     const titleElement = document.createElement('h3');
-     titleElement.classList = 'preview__title';
-     titleElement.textContent = title;
-   
-     const authorElement = document.createElement('div');
-     authorElement.classList = 'preview__author';
-     authorElement.textContent = authors[author];
-   
-     infoElement.appendChild(titleElement);
-     infoElement.appendChild(authorElement);
-   
-     element.appendChild(imageElement);
-     element.appendChild(infoElement);
-   
-     return element;
-   }
+ 
    
    /**
     * Renders book previews based on the current page and matches array.
@@ -80,33 +52,6 @@
      
      // Call the renderBookPreviews function to display the book previews
      renderBookPreviews();
-     
-   
-   //---------------------------------------------------------------------------------
-   
-   /**
-    * This is a function that create the options HTML
-    * @param {string} data - This will replace the {@link defaultOptionText} that already exists after user input
-    * @param {string} defaultOptionText - This is the default text that will show if {@link data} is not found or it's null
-    * @returns {fragment} -The fragment that will be appended to the HTML
-    */
-   
-   const createOptionsFragment = (data, defaultOptionText) => {
-       const fragment = document.createDocumentFragment();
-       const firstElement = document.createElement('option');
-       firstElement.value = 'any';
-       firstElement.innerText = defaultOptionText;
-       fragment.appendChild(firstElement);
-     
-       for (const [id, name] of Object.entries(data)) {
-         const element = document.createElement('option');
-         element.value = id;
-         element.innerText = name;
-         fragment.appendChild(element);
-       }
-     
-       return fragment;
-     }
      
      const genreHtml = createOptionsFragment(genres, 'All Genres');
      document.querySelector('[data-search-genres]').appendChild(genreHtml);
@@ -205,21 +150,7 @@
      
      // Call the function to initialize the overlay functionality
      initializeOverlayFunctionality();
-     
-   /**
-    * This function waits for the user to select either 'day' or 'night' and changes the theme based on user input
-    * @param {string} theme 
-    */
-   
-   const updateTheme = (theme) => {
-       if (theme === 'night') {
-           document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
-           document.documentElement.style.setProperty('--color-light', '10, 10, 20');
-       } else {
-           document.documentElement.style.setProperty('--color-dark', '10, 10, 20');
-           document.documentElement.style.setProperty('--color-light', '255, 255, 255');
-       }
-   }
+
    
    document.querySelector('[data-settings-form]').addEventListener('submit', (event) => {
        event.preventDefault();
@@ -265,7 +196,7 @@
      matches = result;
    
      /**
-      * Displays an error message if there are no matching books, or hides the message if there are matches.
+      * This is the message that will be displayed if there are no matching books
       */
      const errorMessage = () => {
        const listMessage = document.querySelector('[data-list-message]');
@@ -317,41 +248,7 @@
      document.querySelector('[data-search-overlay]').open = false;
    });
    
-   
-   
-   /**
-    * This function creates the book preview element to display 
-    * on the HTML document every time the {@link element}  is clicked.
-    *
-    * @param {Object} book - The book object containing details.
-    * @param {string} book.author - The writer of the book.
-    * @param {string} book.id - The ID of the book.
-    * @param {string} book.image - The image URL of the book.
-    * @param {string} book.title - The title of the book.
-    * @returns {Element} 
-    */
-   
-   const createBookPreview = (book) => {
-     const { author, id, image, title } = book  // Now i actually passed the book as argument. 1
-       const element = document.createElement('button');
-       element.classList = 'preview';
-       element.setAttribute('data-preview', id);
-   
-       element.innerHTML = `
-           <img
-               class="preview__image"
-               src="${image}"
-           />
-   
-           <div class="preview__info">
-               <h3 class="preview__title">${title}</h3>
-               <div class="preview__author">${authors[author]}</div>
-           </div>
-       `;
-   
-       return element;
-   }
-   
+
    const dataListButton = document.querySelector('[data-list-button]')
    
    
@@ -386,7 +283,6 @@
    
        return null;
    }
-   
    
    document.querySelector('[data-list-items]').addEventListener('click', (event) => {
        /**
