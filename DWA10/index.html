@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tally Counter</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/themes/light.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #8b6f6f;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: #a46060;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+        }
+
+        .counter {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .reset-alert {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="counter">
+            <sl-input readonly value="0"></sl-input>
+        </div>
+
+        <div class="buttons">
+            <sl-button>+</sl-button>
+            <sl-button>-</sl-button>
+        </div>
+
+        <sl-button class="reset">Reset</sl-button>
+
+        <sl-alert class="reset-alert" close>
+            <sl-icon slot="icon" name="info-circle"></sl-icon>
+            The counter has been reset.
+        </sl-alert>
+    </div>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/shoelace-autoloader.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

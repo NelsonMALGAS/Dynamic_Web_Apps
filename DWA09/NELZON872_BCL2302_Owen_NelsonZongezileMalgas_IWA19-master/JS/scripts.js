@@ -5,6 +5,14 @@
    hiding unnecessary details. It is the process of representing something in a
    simplified manner, making it easier to understand and work with.
  */
+
+/*
+ A FACTORY FUNCTION is a design pattern in JavaScript that allows you to create
+ and return new objects with a consistent structure. It acts as a factory for
+ creating objects of a specific type, providing a way to encapsulate object
+ creation logic and customize object initialization.
+ */
+
  
  import { 
   books,
@@ -20,36 +28,181 @@
  let page = 1;
  let matches = books;
  
- const starting = document.createDocumentFragment();
  
- /**
-  * Renders book previews based on the current page and matches array.
-  * Uses the createPreviewElement function to generate the preview elements.
-  */
- const renderBookPreviews = () => {
-     // Get the book previews for the current page
-     const bookPreviews = matches
-       .slice((page - 1) * BOOKS_PER_PAGE, page * BOOKS_PER_PAGE)
-       .map(createPreviewElement);
-   
-     // Append each preview element to the 'starting' container
-     bookPreviews.forEach((preview) => {
-       starting.appendChild(preview);
-     });
-   
-     // Append the 'starting' container to the 'data-list-items' container
-     document.querySelector('[data-list-items]').appendChild(starting);
-   }
-   
-   // Call the renderBookPreviews function to display the book previews
-   renderBookPreviews();
-   
-   const genreHtml = createOptionsFragment(genres, 'All Genres');
-   document.querySelector('[data-search-genres]').appendChild(genreHtml);
-   
-   const authorsHtml = createOptionsFragment(authors, 'All Authors');
-   document.querySelector('[data-search-authors]').appendChild(authorsHtml);
- 
+//-----------------------------------------------------------------------------------------------
+/**
+ * Represents a book renderer that displays book previews, genre options, and author options.
+ */
+// class CreateBookRenderer  {
+
+//    /**
+//    * Create a new instance of CreateBookRenderer.
+//    * @param {Array} matches - The array of book matches.
+//    * @param {number} page - The current page number.
+//    * @param {number} BOOKS_PER_PAGE - The number of books to display per page.
+//    * @param {Object} genres - The object of available genres.
+//    * @param {Object} authors - The object of available authors.
+//    */
+
+//   constructor(matches, page, BOOKS_PER_PAGE, genres, authors) {
+//     this.matches = matches;
+//     this.page = page;
+//     this.BOOKS_PER_PAGE = BOOKS_PER_PAGE;
+//     this.genres = genres;
+//     this.authors = authors;
+//   }
+
+//   /**
+//    * Renders book previews based on the current page and matches array.
+//    * Uses the createPreviewElement function to generate the preview elements.
+//    */
+//   renderBookPreviews() {
+//     // Get the book previews for the current page
+    
+//     const bookPreviews = this.matches
+//       .slice((this.page - 1) * this.BOOKS_PER_PAGE, this.page * this.BOOKS_PER_PAGE)
+//       .map(createPreviewElement);
+
+//     // Append each preview element to the 'starting' container
+//     bookPreviews.forEach((preview) => {
+//       document.querySelector('[data-list-items]').appendChild(preview);
+//     });
+//   }
+
+//   /**
+//    * Appends genre options to the DOM.
+//    */
+//   appendGenreOptions() {
+//     const genreHtml = createOptionsFragment(this.genres, 'All Genres');
+//     document.querySelector('[data-search-genres]').appendChild(genreHtml);
+//   }
+
+//   /**
+//    * Appends author options to the DOM.
+//    */
+//   appendAuthorOptions() {
+//     const authorsHtml = createOptionsFragment(this.authors, 'All Authors');
+//     document.querySelector('[data-search-authors]').appendChild(authorsHtml);
+//   }
+// }
+
+// const renderer = new CreateBookRenderer(matches, page, BOOKS_PER_PAGE, genres, authors);
+// renderer.renderBookPreviews();
+// renderer.appendGenreOptions();
+// renderer.appendAuthorOptions();
+
+class BookRenderer extends HTMLElement {
+  constructor() {
+    super();
+
+    this.matches = matches;
+    this.page = 1;
+    this.BOOKS_PER_PAGE = 36;
+    this.genres = genres;
+    this.authors = authors;
+  }
+
+  connectedCallback() {
+    this.render();
+  }
+
+  get Matches() {
+    return this.matches;
+  }
+
+  set Matches(matches) {
+    this.matches = matches;
+    this.renderBookPreviews();
+  }
+
+  get Page() {
+    return this.page;
+  }
+
+  set Page(page) {
+    this.page = page;
+    this.renderBookPreviews();
+  }
+
+  get Genres() {
+    return this.genres;
+  }
+
+  set Genres(genres) {
+    this.genres = genres;
+    this.appendGenreOptions();
+  }
+
+  get Authors() {
+    return this.authors;
+  }
+
+  set Authors(authors) {
+    this.authors = authors;
+    this.appendAuthorOptions();
+  }
+
+  render() {
+    this.renderBookPreviews();
+    this.appendGenreOptions();
+    this.appendAuthorOptions();
+  }
+
+  renderBookPreviews() {
+    // Clear existing book previews
+    this.innerHTML = '';
+
+    // Get the book previews for the current page
+    const bookPreviews = this.matches
+      .slice((this.page - 1) * this.BOOKS_PER_PAGE, this.page * this.BOOKS_PER_PAGE)
+      .map(this.createPreviewElement);
+
+    // Append each preview element to the component
+    bookPreviews.forEach((preview) => {
+      this.appendChild(preview);
+    });
+  }
+
+  createPreviewElement(match) {
+    // Create and return a preview element based on the match
+    const preview = document.createElement('div');
+    preview.textContent = match.title
+    return preview;
+  }
+
+  appendGenreOptions() {
+    const genreHtml = this.createOptionsFragment(this.genres, 'All Genres');
+    this.querySelector('[data-search-genres]').innerHTML = '';
+    this.querySelector('[data-search-genres]').appendChild(genreHtml);
+  }
+
+  appendAuthorOptions() {
+    const authorsHtml = this.createOptionsFragment(this.authors, 'All Authors');
+    this.querySelector('[data-search-authors]').innerHTML = '';
+    this.querySelector('[data-search-authors]').appendChild(authorsHtml);
+  }
+
+  createOptionsFragment(data, defaultOptionText) {
+    const fragment = document.createDocumentFragment();
+    const firstElement = document.createElement('option');
+    firstElement.value = 'any';
+    firstElement.innerText = defaultOptionText;
+    fragment.appendChild(firstElement);
+
+    for (const [id, name] of Object.entries(data)) {
+      const element = document.createElement('option');
+      element.value = id;
+      element.innerText = name;
+      fragment.appendChild(element);
+    }
+    return fragment;
+  }
+}
+
+customElements.define('book-renderer', BookRenderer);
+
+
+//----------------------------------------------------------------------------------------
  /**
   * This function updates the number of books remaining when the showMore button
   * is clicked.remaining books decrements by 36
@@ -65,8 +218,8 @@
        <span>Show more</span>
        <span class="list__remaining"> (${remainingBooks > 0 ? remainingBooks : 0})</span>
      `;
- 
-     document.querySelector('[data-list-button]').addEventListener('click', () => {
+    
+     listButtonElement.addEventListener('click', () => {
          
          remainingBooks -= 36;
          updateRemainingBooksCount();
@@ -76,7 +229,7 @@
    
    updateRemainingBooksCount();
  
-   //---------------------------------------------------------------------------
+
  /**
   * This function is responsible for  the overlay functionality and will be initialized,
   * setting up the event listeners and their corresponding actions. The
@@ -140,8 +293,8 @@
    // Call the function to initialize the overlay functionality
    initializeOverlayFunctionality();
 
- const dataFormSettings = document.querySelector('[data-settings-form]')
- dataFormSettings.addEventListener('submit', (event) => {
+ 
+ document.querySelector('[data-settings-form]').addEventListener('submit', (event) => {
      event.preventDefault();
      const formData = new FormData(event.target);
      const { theme } = Object.fromEntries(formData);
@@ -278,7 +431,7 @@
 const listActiveOverlay =  document.querySelector('[data-list-active]')
 const listActiveBlurImage = document.querySelector('[data-list-blur]')
 const listActiveImage = document.querySelector('[data-list-image]')
-const titleOfBook = document.querySelector('[data-list-title]')   
+const titleOfBook = document.querySelector('[data-list-title]')   // 2 (event listerners)
 const subtitleOfBook = document.querySelector('[data-list-subtitle]')
 const descriptionOfBook = document.querySelector('[data-list-description]')
 const dataListItems = document.querySelector('[data-list-items]')
