@@ -27,182 +27,200 @@
 
  let page = 1;
  let matches = books;
- 
- 
-//-----------------------------------------------------------------------------------------------
+
+
 /**
  * Represents a book renderer that displays book previews, genre options, and author options.
- */
-// class CreateBookRenderer  {
+//  */
+class CreateBookRenderer  {
 
-//    /**
-//    * Create a new instance of CreateBookRenderer.
-//    * @param {Array} matches - The array of book matches.
-//    * @param {number} page - The current page number.
-//    * @param {number} BOOKS_PER_PAGE - The number of books to display per page.
-//    * @param {Object} genres - The object of available genres.
-//    * @param {Object} authors - The object of available authors.
-//    */
+   /**
+   * Create a new instance of CreateBookRenderer.
+   * @param {Array} matches - The array of book matches.
+   * @param {number} page - The current page number.
+   * @param {number} BOOKS_PER_PAGE - The number of books to display per page.
+   * @param {Object} genres - The object of available genres.
+   * @param {Object} authors - The object of available authors.
+   */
 
-//   constructor(matches, page, BOOKS_PER_PAGE, genres, authors) {
-//     this.matches = matches;
-//     this.page = page;
-//     this.BOOKS_PER_PAGE = BOOKS_PER_PAGE;
-//     this.genres = genres;
-//     this.authors = authors;
-//   }
-
-//   /**
-//    * Renders book previews based on the current page and matches array.
-//    * Uses the createPreviewElement function to generate the preview elements.
-//    */
-//   renderBookPreviews() {
-//     // Get the book previews for the current page
-    
-//     const bookPreviews = this.matches
-//       .slice((this.page - 1) * this.BOOKS_PER_PAGE, this.page * this.BOOKS_PER_PAGE)
-//       .map(createPreviewElement);
-
-//     // Append each preview element to the 'starting' container
-//     bookPreviews.forEach((preview) => {
-//       document.querySelector('[data-list-items]').appendChild(preview);
-//     });
-//   }
-
-//   /**
-//    * Appends genre options to the DOM.
-//    */
-//   appendGenreOptions() {
-//     const genreHtml = createOptionsFragment(this.genres, 'All Genres');
-//     document.querySelector('[data-search-genres]').appendChild(genreHtml);
-//   }
-
-//   /**
-//    * Appends author options to the DOM.
-//    */
-//   appendAuthorOptions() {
-//     const authorsHtml = createOptionsFragment(this.authors, 'All Authors');
-//     document.querySelector('[data-search-authors]').appendChild(authorsHtml);
-//   }
-// }
-
-// const renderer = new CreateBookRenderer(matches, page, BOOKS_PER_PAGE, genres, authors);
-// renderer.renderBookPreviews();
-// renderer.appendGenreOptions();
-// renderer.appendAuthorOptions();
-
-class BookRenderer extends HTMLElement {
-  constructor() {
-    super();
-
+  constructor(matches, page, BOOKS_PER_PAGE, genres, authors) {
     this.matches = matches;
-    this.page = 1;
-    this.BOOKS_PER_PAGE = 36;
-    this.genres = genres;
-    this.authors = authors;
-  }
-
-  connectedCallback() {
-    this.render();
-  }
-
-  get Matches() {
-    return this.matches;
-  }
-
-  set Matches(matches) {
-    this.matches = matches;
-    this.renderBookPreviews();
-  }
-
-  get Page() {
-    return this.page;
-  }
-
-  set Page(page) {
     this.page = page;
-    this.renderBookPreviews();
-  }
-
-  get Genres() {
-    return this.genres;
-  }
-
-  set Genres(genres) {
+    this.BOOKS_PER_PAGE = BOOKS_PER_PAGE;
     this.genres = genres;
-    this.appendGenreOptions();
-  }
-
-  get Authors() {
-    return this.authors;
-  }
-
-  set Authors(authors) {
     this.authors = authors;
-    this.appendAuthorOptions();
+
   }
 
-  render() {
-    this.renderBookPreviews();
-    this.appendGenreOptions();
-    this.appendAuthorOptions();
-  }
-
+  /**
+   * Renders book previews based on the current page and matches array.
+   * Uses the createPreviewElement function to generate the preview elements.
+   */
   renderBookPreviews() {
-    // Clear existing book previews
-    this.innerHTML = '';
-
     // Get the book previews for the current page
+    
     const bookPreviews = this.matches
       .slice((this.page - 1) * this.BOOKS_PER_PAGE, this.page * this.BOOKS_PER_PAGE)
-      .map(this.createPreviewElement);
+      .map(createPreviewElement);
 
-    // Append each preview element to the component
+    // Append each preview element to the 'starting' container
     bookPreviews.forEach((preview) => {
-      this.appendChild(preview);
+      document.querySelector('[data-list-items]').appendChild(preview);
     });
   }
 
-  createPreviewElement(match) {
-    // Create and return a preview element based on the match
-    const preview = document.createElement('div');
-    preview.textContent = match.title
-    return preview;
-  }
-
+  /**
+   * Appends genre options to the DOM.
+   */
   appendGenreOptions() {
-    const genreHtml = this.createOptionsFragment(this.genres, 'All Genres');
-    this.querySelector('[data-search-genres]').innerHTML = '';
-    this.querySelector('[data-search-genres]').appendChild(genreHtml);
+    const genreHtml = createOptionsFragment(this.genres, 'All Genres');
+    document.querySelector('[data-search-genres]').appendChild(genreHtml);
   }
 
+  /**
+   * Appends author options to the DOM.
+   */
   appendAuthorOptions() {
-    const authorsHtml = this.createOptionsFragment(this.authors, 'All Authors');
-    this.querySelector('[data-search-authors]').innerHTML = '';
-    this.querySelector('[data-search-authors]').appendChild(authorsHtml);
-  }
-
-  createOptionsFragment(data, defaultOptionText) {
-    const fragment = document.createDocumentFragment();
-    const firstElement = document.createElement('option');
-    firstElement.value = 'any';
-    firstElement.innerText = defaultOptionText;
-    fragment.appendChild(firstElement);
-
-    for (const [id, name] of Object.entries(data)) {
-      const element = document.createElement('option');
-      element.value = id;
-      element.innerText = name;
-      fragment.appendChild(element);
-    }
-    return fragment;
+    const authorsHtml = createOptionsFragment(this.authors, 'All Authors');
+    document.querySelector('[data-search-authors]').appendChild(authorsHtml);
   }
 }
 
-customElements.define('book-renderer', BookRenderer);
+const renderer = new CreateBookRenderer(matches, page, BOOKS_PER_PAGE, genres, authors);
+renderer.renderBookPreviews();
+renderer.appendGenreOptions();
+renderer.appendAuthorOptions();
 
 
-//----------------------------------------------------------------------------------------
+// class BookPreview extends HTMLElement {
+//   constructor() {
+//     super();
+//     this.book = null;
+//   }
+
+//   connectedCallback() {
+//     this.render();
+//   }
+
+//   /**
+//    * @param {any} book
+//    */
+//   set bookData(book) {
+//     this.book = book;
+//     this.render();
+//   }
+
+//   render() {
+//     if (!this.book) {
+//       this.innerHTML = '';
+//       return;
+//     }
+
+//     const { author, id, image, title } = this.book;
+
+//     this.innerHTML = `
+//       <div class="preview" data-preview="${id}">
+//         <img class="preview__image" src="${image}" />
+//         <div class="preview__info">
+//           <h3 class="preview__title">${title}</h3>
+//           <div class="preview__author">${authors[author]}</div>
+//         </div>
+//       </div>
+//     `;
+//   }
+// }
+
+// customElements.define('book-preview', BookPreview);
+
+// class CreateBookRenderer extends HTMLElement {
+//   constructor() {
+//     super();
+//     this.matches = null;
+//     this.page = null;
+//     this.BOOKS_PER_PAGE = null;
+//     this.genres = null;
+//     this.authors = null;
+//   }
+
+//   connectedCallback() {
+//     this.renderBookPreviews();
+//     this.appendGenreOptions();
+//     this.appendAuthorOptions();
+//   }
+
+//   renderBookPreviews() {
+//     const { matches, page, BOOKS_PER_PAGE } = this;
+//     const bookPreviews = matches
+//       .slice((page - 1) * BOOKS_PER_PAGE, page * BOOKS_PER_PAGE)
+//       .map((book) => {
+//         const preview = document.createElement('book-preview');
+//         preview.bookData = book;
+//         return preview;
+//       });
+
+//     bookPreviews.forEach((preview) => {
+//       this.appendChild(preview);
+//     });
+//   }
+
+//   appendGenreOptions() {
+//     const { genres } = this;
+//     const genreDropdown = document.createElement('select');
+//     genreDropdown.classList.add('genre-dropdown');
+
+//     // Create an option for "All Genres"
+//     const allGenresOption = document.createElement('option');
+//     allGenresOption.value = '';
+//     allGenresOption.text = 'All Genres';
+//     genreDropdown.appendChild(allGenresOption);
+
+//     // Create options for each genre
+//     Object.entries(genres).forEach(([genreId, genreName]) => {
+//       genreId = genres[this.id]
+//       const option = document.createElement('option');
+//       option.value = genreId;
+//       option.text = genreName;
+//       genreDropdown.appendChild(option);
+//     });
+
+//     this.appendChild(genreDropdown);
+//   }
+
+//   appendAuthorOptions() {
+//     const { authors } = this;
+//     const authorDropdown = document.createElement('select');
+//     authorDropdown.classList.add('author-dropdown');
+
+//     // Create an option for "All Authors"
+//     const allAuthorsOption = document.createElement('option');
+//     allAuthorsOption.value = '';
+//     allAuthorsOption.text = 'All Authors';
+//     authorDropdown.appendChild(allAuthorsOption);
+
+//     // Create options for each author
+//     Object.entries(authors).forEach(([authorId, authorName]) => {
+//       const option = document.createElement('option');
+//       option.value = authorId;
+//       option.text = authorName;
+//       authorDropdown.appendChild(option);
+//     });
+
+//     this.appendChild(authorDropdown);
+//   }
+// }
+
+// customElements.define('create-book-renderer', CreateBookRenderer);
+
+// const renderer = new CreateBookRenderer();
+// renderer.matches = matches;
+// renderer.page = page;
+// renderer.BOOKS_PER_PAGE = BOOKS_PER_PAGE;
+// renderer.genres = genres;
+// renderer.authors = authors;
+
+// document.querySelector('[data-list-items]').appendChild(renderer);
+
+
  /**
   * This function updates the number of books remaining when the showMore button
   * is clicked.remaining books decrements by 36

@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #8b6f6f;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 300px;
+    margin: 0 auto;
+    background-color: #a46060;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.counter {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.reset-alert {
+    margin-bottom: 20px;
+}
