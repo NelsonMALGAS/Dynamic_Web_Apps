@@ -1,18 +1,3 @@
-
-/*
-   ABSTRACTION is a fundamental concept in computer science and programming that
-   involves simplifying complex systems by focusing on essential features while
-   hiding unnecessary details. It is the process of representing something in a
-   simplified manner, making it easier to understand and work with.
- */
-
-/*
- A FACTORY FUNCTION is a design pattern in JavaScript that allows you to create
- and return new objects with a consistent structure. It acts as a factory for
- creating objects of a specific type, providing a way to encapsulate object
- creation logic and customize object initialization.
- */
-
  
  import { 
   books,
