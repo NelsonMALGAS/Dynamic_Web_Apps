@@ -90,7 +90,6 @@ renderer.renderBookPreviews();
 renderer.appendGenreOptions();
 renderer.appendAuthorOptions();
 
-console.log(renderer)
 //----------------------------------------------------------------------------------------
  /**
   * This function updates the number of books remaining when the showMore button
