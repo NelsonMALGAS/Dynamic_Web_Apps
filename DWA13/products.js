@@ -1,25 +1,26 @@
 const products = [
     { product: 'banana', price: "2" },
     { product: 'mango', price: 6 },
-    { product: 'potato', price: '' },
+    { product: 'potato', price: '  ' },
     { product: 'avocado', price: "8" },
     { product: 'coffee', price: 10 },
     { product: 'tea', price: '' },
   ];
   
   // Task 1: Console log each product name
-  products.forEach((product) => {
+  products.forEach((product) => { 
     console.log(product.product);
   });
   
   // Task 2: Filter out products with a name longer than 5 characters
-  const filteredProducts = products.filter((product) => product.product.length <= 5);
+  const filteredProducts = products.filter((product) => product[product.length] <= 5);
   console.log(filteredProducts);
   
   // Task 3: Convert string prices to numbers and remove products without prices
-  const validProducts = products.filter((product) => (product.price) !== '').map((product) => ({
+  const validProducts = products.filter((product) => (product.price) !== '' && (product.price) !== '  ')
+  .map((product) => ({
     ...product,
-    price: Number(product.price),
+    price: parseInt(product.price),
   }));
   console.log(validProducts);
   
@@ -61,5 +62,3 @@ const products = [
     return modifiedProduct;
   });
   console.log(modifiedProducts);
-  
-  

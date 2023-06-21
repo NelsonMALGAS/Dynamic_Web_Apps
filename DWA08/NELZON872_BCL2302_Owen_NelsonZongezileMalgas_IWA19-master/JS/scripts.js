@@ -1,12 +1,5 @@
 
 /*
-   ABSTRACTION is a fundamental concept in computer science and programming that
-   involves simplifying complex systems by focusing on essential features while
-   hiding unnecessary details. It is the process of representing something in a
-   simplified manner, making it easier to understand and work with.
- */
-
-/*
  A FACTORY FUNCTION is a design pattern in JavaScript that allows you to create
  and return new objects with a consistent structure. It acts as a factory for
  creating objects of a specific type, providing a way to encapsulate object
@@ -39,30 +32,29 @@
  * @param {Array} authors - Array of available authors
  * @returns {Object} - Object with rendering methods
  */
-function createBookRenderer(matches, page, BOOKS_PER_PAGE, genres, authors) {
+const createBookRenderer = (matches, page, BOOKS_PER_PAGE, genres, authors) => {
+
   /**
    * Renders book previews based on the current page and matches array.
    * Uses the createPreviewElement function to generate the preview elements.
    */
-  function renderBookPreviews() {
+  const renderBookPreviews = () => {
     // Get the book previews for the current page
     const bookPreviews = matches
       .slice((page - 1) * BOOKS_PER_PAGE, page * BOOKS_PER_PAGE)
       .map(createPreviewElement);
 
-    // Append each preview element to the 'starting' container
     bookPreviews.forEach((preview) => {
       starting.appendChild(preview);
     });
 
-    // Append the 'starting' container to the 'data-list-items' container
     document.querySelector('[data-list-items]').appendChild(starting);
   }
 
   /**
    * Appends genre options to the DOM.
    */
-  function appendGenreOptions() {
+  const appendGenreOptions = () => {
     const genreHtml = createOptionsFragment(genres, 'All Genres');
     const dataSearchGen = document.querySelector('[data-search-genres]')
     dataSearchGen.appendChild(genreHtml);
@@ -71,7 +63,7 @@ function createBookRenderer(matches, page, BOOKS_PER_PAGE, genres, authors) {
   /**
    * Appends author options to the DOM.
    */
-  function appendAuthorOptions() {
+  const appendAuthorOptions = () => {
     const authorsHtml = createOptionsFragment(authors, 'All Authors');
     const dataSearchAuth = document.querySelector('[data-search-authors]')
     dataSearchAuth.appendChild(authorsHtml);
