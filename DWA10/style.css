@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #8b6f6f;
+    background-color: #8d8585;
     padding: 20px;
 }
 
@@ -11,21 +11,35 @@ body {
     flex-direction: column;
     max-width: 300px;
     margin: 0 auto;
-    background-color: #a46060;
+    background-color: #ac9393;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 .counter {
     font-size: 40px;
-    font-weight: bold;
+    font-weight: bolder;
     margin-bottom: 20px;
 }
+
 
 .buttons {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+}
+.buttons sl-button {
+    margin-right: 10px;
+    width: 100px;
+  }
+.reset  {
+    width: 200px;
+    margin-bottom: 10px;
+}
+.input {
+    width: 320px;
+    border-bottom: 2px solid black;
+    border-radius: 5px;
 }
 
 .reset-alert {

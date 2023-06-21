@@ -1,23 +1,22 @@
-const slPlusBtn =document.querySelector("body > div > div.buttons > sl-button:nth-child(1)")
-const slMinusBtn = document.querySelector("body > div > div.buttons > sl-button:nth-child(2)")
-const resetBtn = document.querySelector("body > div > sl-button")
-const input = document.querySelector("body > div > div.counter > sl-input")
-const arlet = document.querySelector("body > div > sl-alert")
+const slPlusBtn =document.querySelector('[data-plus-btn]')
+const slMinusBtn = document.querySelector('[data-minus-btn]')
+const resetBtn = document.querySelector('[data-reset]')
+const input = document.querySelector('[data-input]')
+const arlet = document.querySelector('[data-arlet]')
 const body = document.querySelector("body")
 
 
 let count = 1
 
 slPlusBtn.addEventListener('click' , () =>{
-    arlet.open = false
     input.value = count++
+    arlet.open = false
   
-
 })
 
 slMinusBtn.addEventListener('click' , () =>{
-    arlet.open = false
     input.value = count--
+    arlet.open = false
 })
 
 resetBtn.addEventListener('click' , ()=>{
