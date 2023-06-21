@@ -1,4 +1,5 @@
 
+// Reducer functions should only depend on their state and action arguments,
 /**
  * Reduces the state based on the action.
  * @param {Object} state - The current state.
