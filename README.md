@@ -1,6 +1,7 @@
-# <strong>Dynamic_Web_Apps</strong>
+# <strong> 🖊️ Author : NELSON ZONGEZILE MALGAS
+# <strong>Dynamic_Web_Apps</strong> 
 
- A collection of different topics related to web development and software engineering. These topics cover a range of subjects such as the importance of managing complexity in software development and effective strategies for doing so, understanding web technology compatibility through resources like MDN and CanIUse, applying documentation techniques in JavaScript, writing user stories using buttons from the Tally Counter, practicing the Airbnb JavaScript style guide, throwing errors in a division calculator , how to use Abstraction on the Book connect project(IWA19) , how to modify code so that it meets the SOLID Principle standards ,Encapsulation ,ShadowRoots / Shadow DOM,Using the shoelace library,Implementation of Redux-Inspired Store for the Tally Counter App,Understanding JavaScript Frameworks: Abstraction, Benefits, and Learning Approach ,demonstration of various array and object manipulation tasks using JavaScript methods such as <strong>forEach</strong>, <strong>filter</strong>, <strong>map</strong>, <strong>reduce</strong>, and <strong>sort</strong>. Each topic explores different aspects of web development and software engineering, providing valuable insights and knowledge in these areas.
+ A collection of different topics related to web development and software engineering. These topics cover a range of subjects such as the importance of managing complexity in software development and effective strategies for doing so, understanding web technology compatibility through resources like MDN and CanIUse, applying documentation techniques in JavaScript, writing user stories using buttons from the Tally Counter, practicing the Airbnb JavaScript style guide, throwing errors in a division calculator , how to use Abstraction on the Book connect project(IWA19) , how to modify code so that it meets the SOLID Principle standards ,Encapsulation ,ShadowRoots / Shadow DOM,Using the shoelace library,Implementation of Redux-Inspired Store for the Tally Counter App,Understanding JavaScript Frameworks: Abstraction, Benefits, and Learning Approach ,demonstration of various array and object manipulation tasks using JavaScript methods such as <strong>forEach</strong>, <strong>filter</strong>, <strong>map</strong>, <strong>reduce</strong>, and <strong>sort</strong>, and also created the Tally App using Lit framework. Each topic explores different aspects of web development and software engineering, providing valuable insights and knowledge in these areas.
 
 # DWA01
 Importance of Managing Complexity in Software Development and Effective Strategies
@@ -77,3 +78,7 @@ Task 4: Creating an array with the length of each name using map.<br>
 Task 5: Sorting provinces alphabetically using sort.<br>
 Task 6: Filtering provinces that don't include the word 'Cape' and getting the count of remaining provinces using filter and length.<br>
 Task 7: Using reduce to create an object indicating the province of an individual using names as keys and provinces as values.
+
+# DWA14
+
+Created the Tally App using Lit framework and also modified the App in terms of Normal ,Maximum and Minimum states
