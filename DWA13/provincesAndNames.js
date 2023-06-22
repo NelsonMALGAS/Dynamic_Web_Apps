@@ -43,12 +43,18 @@ const remainingCount = filteredProvinces.length;
 console.log('The provinces that dont have "cape" are :', remainingCount + ' ' + 'in number');
 
 // Task 7: Use reduce to create an object indicating the province of an individual
+const containsS = names.map(name => name.toLowerCase().includes('s'));
+console.log(containsS);
+
+
+// Task 8 : to determine whether a name contains an
 const provinceObject = names.reduce((acc, name, index) => {
   const province = provinces[index];
   acc[name] = province;
   return acc;
 }, {});
 console.log(provinceObject);
+
 
 
 

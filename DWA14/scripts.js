@@ -33,7 +33,7 @@ class TallyCounter extends LitElement {
     input {
       margin-bottom: 10px;
       padding: 8px;
-      font-size: 18px;
+      font-size: 45px;
       text-align: center;
       width: 300px;
     }
@@ -45,16 +45,23 @@ class TallyCounter extends LitElement {
 
     button {
       padding: 8px 16px;
-      font-size: 16px;
+      font-size: 26px;
       margin-bottom: 5px;
       margin-right : 10px
       
+    }
+    .btn {
+      color : black
     }
 
     p {
       margin-top: 5px;
       font-size: 34px;
       color: gray;
+    }
+    h1 {
+      text-align : center
+      
     }
     .reset {
         color : green
@@ -81,13 +88,14 @@ class TallyCounter extends LitElement {
    */
   render() {
     return html`
+      <h1>Tally Counter</h1>
       <div class="container">
         <input readonly .value="${this.value}">
         <div class="buttons">
-          <button @click="${this.increment}" ?disabled="${this.value >= 20}" data-plus>+</button>
-          <button @click="${this.decrement}" ?disabled="${this.value <= -5}" data-minus>-</button>
+          <button @click="${this.increment}" ?disabled="${this.value >= 20}" class = "btn" data-plus>+</button>
+          <button @click="${this.decrement}" ?disabled="${this.value <= -5}" class = "btn" data-minus>-</button>
         </div>
-        <button @click="${this.handleReset}" data-reset>Reset</button>
+        <button @click="${this.handleReset}" class = "btn" data-reset>Reset</button>
         ${this.value >= 20 ? html`<p class = 'btn'>You have reached the maximum value.</p>` : ''}
         ${this.value <= -5 ? html`<p class = 'btn'>You have reached the minimum value.</p>` : ''}
         ${this.resetMessageVisible ? html`<p class = 'reset'>Counter has been reset.</p>` : ''}
