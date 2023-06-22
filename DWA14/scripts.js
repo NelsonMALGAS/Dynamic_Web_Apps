@@ -5,7 +5,7 @@ import { LitElement, html, css } from './lit.js';
  * Custom element representing a tally app.
  * @extends LitElement
  */
-class MyElement extends LitElement {
+class TallyCounter extends LitElement {
 
   /**
    * Properties for the component.
@@ -84,11 +84,11 @@ class MyElement extends LitElement {
       <div class="container">
         <input readonly .value="${this.value}">
         <div class="buttons">
-          <button @click="${this.increment}" ?disabled="${this.value >= 15}" data-plus>+</button>
+          <button @click="${this.increment}" ?disabled="${this.value >= 20}" data-plus>+</button>
           <button @click="${this.decrement}" ?disabled="${this.value <= -5}" data-minus>-</button>
         </div>
         <button @click="${this.handleReset}" data-reset>Reset</button>
-        ${this.value >= 15 ? html`<p class = 'btn'>You have reached the maximum value.</p>` : ''}
+        ${this.value >= 20 ? html`<p class = 'btn'>You have reached the maximum value.</p>` : ''}
         ${this.value <= -5 ? html`<p class = 'btn'>You have reached the minimum value.</p>` : ''}
         ${this.resetMessageVisible ? html`<p class = 'reset'>Counter has been reset.</p>` : ''}
       </div>
@@ -125,4 +125,4 @@ class MyElement extends LitElement {
   }
 }
 
-customElements.define('my-nelson', MyElement);
+customElements.define('my-nelson', TallyCounter);
