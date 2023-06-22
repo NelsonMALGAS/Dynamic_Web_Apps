@@ -6,7 +6,7 @@ const arlet = document.querySelector('[data-arlet]')
 const body = document.querySelector("body")
 
 
-let count = 1
+let count = 0
 
 slPlusBtn.addEventListener('click' , () =>{
     input.value = count++
