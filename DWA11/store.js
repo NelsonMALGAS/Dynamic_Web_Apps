@@ -1,5 +1,7 @@
 /**
  * Store module responsible for managing the application state.
+ * 
+ * The store methods (getState , dispatch ,subscribe)
  */
 
 /**
