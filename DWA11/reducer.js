@@ -1,7 +1,7 @@
 
-// Reducer functions should only depend on their state and action arguments,
+
 /**
- * Reduces the state based on the action.
+ * This is a function that specifies how the state should be updated in response to actions
  * @param {Object} state - The current state.
  * @param {Object} action - The action object.
  * @returns {Object} The updated state.
