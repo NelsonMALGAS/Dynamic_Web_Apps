@@ -133,4 +133,4 @@ class TallyCounter extends LitElement {
   }
 }
 
-customElements.define('my-nelson', TallyCounter);
+customElements.define('mr-nelson', TallyCounter);
