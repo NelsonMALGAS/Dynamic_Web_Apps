@@ -13,8 +13,10 @@ const products = [
   });
   
   // Task 2: Filter out products with a name longer than 5 characters
-  const filteredProducts = products.filter((product) => product[product.length] <= 5);
+  const filteredProducts = products.filter((product) => product.product.length > 5);
   console.log(filteredProducts);
+
+  
   
   // Task 3: Convert string prices to numbers and remove products without prices
   const validProducts = products.filter((product) => (product.price) !== '' && (product.price) !== '  ')
