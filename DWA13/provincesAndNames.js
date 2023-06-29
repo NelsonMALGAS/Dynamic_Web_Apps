@@ -47,7 +47,7 @@ const remainingCount = filteredProvinces.length;
 console.log('The provinces that dont have "cape" are :', remainingCount + ' ' + 'in number');
 
 /**
- * Task 7: Use reduce to create an object indicating the province of an individual
+ * Task 7: Create a boolean array by using map and some to determine whether a name contains an S character
  */
 const containsS = names.map(name => name.toLowerCase().split('').some(char => char === 's'));
 console.log(containsS);
